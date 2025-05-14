@@ -205,3 +205,42 @@ func TestSelectHyperslab(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestResize(t *testing.T) {
+	DisplayErrors(true)
+	defer DisplayErrors(false)
+	defer os.Remove(fname)
+
+	dims := []uint{12, 4}
+	dspace, err := CreateSimpleDataspace(dims, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer dspace.Close()
+
+	prop, err := NewPropList(P_DATASET_CREATE)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer prop.Close()
+
+	prop.SetChunk(dims)
+
+	f, err := CreateFile(fname, F_ACC_TRUNC)
+	if err != nil {
+		t.Fatalf("CreateFile failed: %s\n", err)
+	}
+	defer f.Close()
+
+	dset, err := f.CreateDatasetWith("dset", T_NATIVE_USHORT, dspace, prop)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer dset.Close()
+
+	err = dset.Resize([]uint{12, 4})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+}
