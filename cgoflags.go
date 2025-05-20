@@ -4,7 +4,7 @@
 
 package hdf5
 
-// #cgo LDFLAGS: -l:libhdf5_debug.a -l:libhdf5_hl_debug.a
+// #cgo LDFLAGS: -l:libhdf5_debug.a -l:libhdf5_hl_debug.a -lm
 // #cgo darwin CFLAGS: -I/usr/local/include
 // #cgo darwin LDFLAGS: -L/usr/local/lib
 // #cgo linux,!arm64 CFLAGS: -I/usr/local/include, -I/usr/local/HDF_Group/HDF5/2.0.0/include
