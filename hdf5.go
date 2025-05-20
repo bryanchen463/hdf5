@@ -85,3 +85,7 @@ type Object interface {
 	Id() int
 	File() *File
 }
+
+func CleanUp() {
+	C.H5close()
+}
